@@ -10,7 +10,8 @@ import {
   Icon,HighlightCards,
   Title,
   Transactions,
-  TransactionsList
+  TransactionsList,
+  LogoutButton
 
  } from "./styles";
 
@@ -67,7 +68,10 @@ export function Dashboard() {
             </User>
           </UserInfo>
 
-          <Icon name="power"/>
+          <LogoutButton onPress={()=>{}}>
+            <Icon name="power"/>
+          </LogoutButton>
+          
         </UserWrapper>
 
       </Header>

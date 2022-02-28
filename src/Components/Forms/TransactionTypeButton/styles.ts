@@ -1,6 +1,7 @@
 import styled, {css} from "styled-components/native";
 
 import {Feather} from '@expo/vector-icons';
+import { RectButton } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
 
 interface IconProps {
