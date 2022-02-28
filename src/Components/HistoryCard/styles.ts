@@ -19,15 +19,16 @@ export const Container = styled.View<ContainerProps>`
   flex-direction: row;
 
   padding: 13px 24px;
-  padding-bottom: ${RFValue(42)}px;
 
   margin-bottom: 8px;
 
 `;
 
 export const  Title = styled.Text`
-
+  font-family: ${({theme}) => theme.fonts.regular};
+  font-size: ${RFValue(15)}px;
 `;
 export const  Amount = styled.Text`
-
+  font-family: ${({theme}) => theme.fonts.bold};
+  font-size: ${RFValue(15)}px;
 `;

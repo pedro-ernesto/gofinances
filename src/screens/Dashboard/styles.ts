@@ -4,7 +4,6 @@ import { RFPercentage,RFValue } from "react-native-responsive-fontsize";
 import {Feather} from '@expo/vector-icons';
 import { getBottomSpace, getStatusBarHeight } from "react-native-iphone-x-helper";
 import { DataListProps } from ".";
-import { BorderlessButton } from "react-native-gesture-handler";
 
 export const Container = styled.View`
   flex: 1;
@@ -87,7 +86,7 @@ export const Transactions = styled.View`
   margin-top: ${RFPercentage(12)}px;
 `;
 
-export const LogoutButton = styled(BorderlessButton)`
+export const LogoutButton = styled.TouchableOpacity`
 `;
 
 export const LoadContainer = styled.View`

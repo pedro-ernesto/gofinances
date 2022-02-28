@@ -40,6 +40,7 @@ import {
    name: Yup.string().required('Nome obrigatório'),
    amount: Yup
    .number()
+   .required('Valor é obrigatório')
    .typeError('Digite um número válido')
    .positive('Digite um valor positivo')
    
@@ -121,7 +122,7 @@ export function Register () {
   function handleOpenSelectCategoryModal () {
     setCategoryModalOpen(true);
   }
-  
+
   return(
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
