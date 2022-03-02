@@ -10,6 +10,7 @@ import uuid from 'react-native-uuid';
 
 import { useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../hooks/auth";
 
 import { Button } from "../../Components/Forms/Button";
 import { InputForm } from "../../Components/Forms/InputForm";
@@ -51,7 +52,8 @@ export function Register () {
 
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
-  const dataKey = '@gofinances:transactions';
+  const {user} = useAuth();
+  const dataKey = `@gofinances:transactions_user:${user.id}`;
   const navigation = useNavigation<NavigationProps>();
 
   const {

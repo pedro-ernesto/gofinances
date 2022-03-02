@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native";
 import { useTheme } from "styled-components";
-
+import { useAuth } from "../../hooks/auth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HighlightCard } from "../../Components/HighlightCard";
 import { TransactionCard, TransactionCardProps } from "../../Components/TransactionCard";
@@ -20,6 +20,7 @@ import {
 
  } from "./styles";
 
+
 export interface DataListProps extends TransactionCardProps{
    id: string;
  }
@@ -35,14 +36,13 @@ interface HighlightData{
   result: HighlightProps;
 }
 
-const dataKey = '@gofinances:transactions';
-
 export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [data,setData] = useState<DataListProps[]>([]);
   const [highlightData,setHighlightData] = useState<HighlightData>({} as HighlightData);
   const theme = useTheme();
-
+  const {signOut,user} = useAuth();
+  const dataKey = `@gofinances:transactions_user:${user.id}`;
   function getLastTransactionDate(collection: DataListProps[],
     type: 'up' | 'down'){
     const lastTransaction =
@@ -151,14 +151,14 @@ export function Dashboard() {
           <Header>
             <UserWrapper>
               <UserInfo>
-                <Photo source= {{ uri: 'https://avatars.githubusercontent.com/u/63816957?s=400&u=7e5e69132bbe0c2f5257475741998fec7cd7266b&v=4'}}/>
+                <Photo source= {{ uri: user.photo}}/>
                 <User>
                   <UserGreeting>Olá, </UserGreeting>
-                  <UserName>Pedro</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>
               </UserInfo>
 
-              <LogoutButton onPress={()=>{}}>
+              <LogoutButton onPress={signOut}>
                 <Icon name="power"/>
               </LogoutButton>
               

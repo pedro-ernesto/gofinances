@@ -4,6 +4,7 @@ import { VictoryPie } from "victory-native";
 
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components";
+import { useAuth } from "../../hooks/auth";
 
 import { HistoryCard } from "../../Components/HistoryCard";
 
@@ -29,7 +30,6 @@ import {
 import { ActivityIndicator } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
- const dataKey = '@gofinances:transactions';
 
 interface TransactionData {
   transactionType: 'up' | 'down';
@@ -53,7 +53,8 @@ interface CategoryData {
   const [totalByCategories, settotalByCategories] = useState<CategoryData[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
-
+  const {signOut,user} = useAuth();
+  const dataKey = `@gofinances:transactions_user:${user.id}`;
   const theme = useTheme();
 
   function handleDateChange(action: 'next' | 'prev'){
