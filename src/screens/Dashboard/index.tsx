@@ -43,12 +43,19 @@ export function Dashboard() {
   const theme = useTheme();
   const {signOut,user} = useAuth();
   const dataKey = `@gofinances:transactions_user:${user.id}`;
+
   function getLastTransactionDate(collection: DataListProps[],
     type: 'up' | 'down'){
+
+    const collectionFiltered = collection.
+    filter(transaction=>transaction.transactionType === type);
+
+    if (collectionFiltered.length === 0)
+      return 0;
+
     const lastTransaction =
     new Date(
-    Math.max.apply(Math,collection
-    .filter(transaction  => transaction.transactionType === type)
+    Math.max.apply(Math,collectionFiltered
     .map(transaction => new Date(transaction.date).getTime())
     ));
 
@@ -98,7 +105,9 @@ export function Dashboard() {
 
     const lastTransactionEntry = getLastTransactionDate(transactions, 'up');
     const lastTransactionExpenses = getLastTransactionDate(transactions, 'down');
-    const interval = `01 a ${lastTransactionExpenses}`
+    const interval = lastTransactionExpenses === 0 
+    ? 'Não há transações' 
+    : `01 a ${lastTransactionExpenses}`
 
     const result = entriesTotal - expensesTotal;
 
@@ -108,14 +117,18 @@ export function Dashboard() {
           style: 'currency',
           currency: 'BRL'
         }),
-        lastTransaction: `Última entrada dia ${lastTransactionEntry}`
+        lastTransaction: lastTransactionEntry=== 0 
+        ? 'Não há transações' 
+        : `Última entrada dia ${lastTransactionEntry}`
       },
       expenses: {
         total: expensesTotal.toLocaleString('pt-BR',{
           style: 'currency', 
           currency: 'BRL'
         }),
-        lastTransaction: `Última entrada dia ${lastTransactionExpenses}`
+        lastTransaction: lastTransactionExpenses === 0 
+        ? 'Não há transações' 
+        : `Última entrada dia ${lastTransactionExpenses}`
       },
       result: {
         total: result.toLocaleString('pt-BR',{
